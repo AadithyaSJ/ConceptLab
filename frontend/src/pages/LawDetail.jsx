@@ -1,27 +1,27 @@
 import { useParams } from 'react-router-dom';
 import lawsData from '../data/lawsData';
 import LawInfoCard from '../components/LawInfoCard';
-import ControlPanel from '../components/ControlPanel';
 import QuizStartButton from '../components/QuizStartButton';
-import ForceSimulator from '../components/ForceSimulator';
+import SimulationComponents from '../components/simulations';
 // import other simulators here...
 
 export default function LawDetail() {
   const lawId = useParams();
   const law = lawsData[lawId.id];
-
-  console.log(lawsData[lawId]);
-  console.log(lawId.id);
-  
+  const SimulationComponent = SimulationComponents[law.component];
 
   if (!law) return <div className="text-red-500">Law not found</div>;
 
   return (
-    <div className="flex flex-col items-center gap-4 p-4">
+    <div className="flex flex-col w-full items-center gap-4 p-4">
       <LawInfoCard law={law} />
-      {law.component === 'ForceSimulator' && <ForceSimulator />}
-      {/* Later: Add other simulators conditionally here */}
-      <ControlPanel />
+      {SimulationComponent ? (
+        <div className="my-6">
+          <SimulationComponent />
+        </div>
+      ) : (
+        <p className="text-center text-gray-500">Simulation not available.</p>
+      )}
       <QuizStartButton lawId={lawId} />
     </div>
   );
