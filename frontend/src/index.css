@@ -1,1 +1,14 @@
 @import "tailwindcss";
+
+/* global CSS or CSS module */
+.root-background {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    #0b1f3a 0%,     /* deep blue at the top */
+    #0b182c 20%,    /* mid-tone */
+    #080f1a 100%    /* almost black at bottom */
+  );
+  z-index: -1;
+}
