@@ -1,10 +1,23 @@
 import React from "react";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useNavigate } from "react-router-dom";
+import { auth } from "../firebase"; // adjust path if needed
+import { signOut } from "firebase/auth";
 
-const Navbar = () => {
+const Navbar = ({ user, atTop }) => {
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      navigate('/');
+    } catch (err) {
+      console.error("Logout error:", err.message);
+    }
+  };
+
   return (
     <nav className="fixed top-4 left-1/2 transform -translate-x-1/2 w-[95%] md:w-[90%] z-50 bg-white/10 backdrop-blur-md border border-white/10 rounded-2xl shadow-xl px-6 py-3 flex justify-between items-center">
-      
+
       {/* Logo Section */}
       <div className="flex items-center gap-3">
         <Link to="/">
@@ -21,7 +34,7 @@ const Navbar = () => {
       <ul className="hidden md:flex gap-8 text-sm text-white font-medium items-center">
         {[
           { name: "Home", path: "/" },
-          { name: "Features", path: "/#features" }, // Adjust based on your route
+          { name: "Features", path: "/#features" },
           { name: "Laws", path: "/laws" },
         ].map(({ name, path }) => (
           <li key={name} className="cursor-pointer relative group">
@@ -35,14 +48,23 @@ const Navbar = () => {
           </li>
         ))}
 
-        {/* Login as a button */}
+        {/* Auth Button */}
         <li>
-          <NavLink
-            to="/login"
-            className="bg-yellow-400 text-black px-4 py-2 rounded-md shadow-md hover:bg-yellow-500 transition duration-300"
-          >
-            Login
-          </NavLink>
+          {user ? (
+            <button
+              onClick={handleLogout}
+              className="bg-red-500 text-white px-4 py-2 rounded-md shadow-md hover:bg-red-600 transition duration-300"
+            >
+              Logout
+            </button>
+          ) : (
+            <NavLink
+              to="/login"
+              className="bg-yellow-400 text-black px-4 py-2 rounded-md shadow-md hover:bg-yellow-500 transition duration-300"
+            >
+              Login
+            </NavLink>
+          )}
         </li>
       </ul>
 

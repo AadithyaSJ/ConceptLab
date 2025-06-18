@@ -17,6 +17,15 @@ const lawsData = [
       "In this simulation, users fire a projectile from a cannon. They can control the mass and acceleration using sliders. When fired, the object hits a target based on the force. This gives an interactive feel of how force, mass, and acceleration are related.",
     component: "ForceSimulator",
   },
+  {
+  name: "Snell's Law",
+  formula: "n₁ × sin(θ₁) = n₂ × sin(θ₂)",
+  passage1:
+    "Snell's Law describes how light bends, or refracts, when it passes from one medium into another with a different refractive index. The law relates the angle of incidence and the angle of refraction to the refractive indices of the two media.",
+  passage2:
+    "In this simulation, users can interactively change the incident angle and the refractive indices of the two media. They can observe how the light ray bends at the boundary, offering a hands-on way to understand the relationship between light direction and material properties.",
+  component: "SnellsSim"
+},
 ];
 
 export default lawsData;

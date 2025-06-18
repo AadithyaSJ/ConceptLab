@@ -12,3 +12,9 @@
   );
   z-index: -1;
 }
+
+.color-empty { background-color: transparent; }
+.color-scale-1 { background-color: #fdeaca; }
+.color-scale-2 { background-color: #fbc684; }
+.color-scale-3 { background-color: #f1932b; }
+.color-scale-4 { background-color: #c1592b; }

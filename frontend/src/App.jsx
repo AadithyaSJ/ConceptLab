@@ -11,9 +11,26 @@ import Score from './pages/Score';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Background from './components/background';
+import ProtectedRoute from './components/ProtectedRoute';
+import { onAuthStateChanged, getAuth } from 'firebase/auth';
+import { auth } from "./firebase";
 
 function App() {
   const [atTop, setAtTop] = useState(true);
+
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user); // Logged in user
+      } else {
+        setUser(null); // Not logged in
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -26,7 +43,8 @@ function App() {
 
   return (
     <Router>
-      <Navbar atTop={atTop} />
+      <Navbar atTop={atTop} user={user} />
+
       <Background />
       
       {/* Add top margin to content when navbar is floating */}
@@ -35,11 +53,11 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/laws" element={<LawsList />} />
-          <Route path="/laws/:id" element={<LawDetail />} />
-          <Route path="/quiz/:id" element={<Quiz />} />
-          <Route path="/score" element={<Score />} />
+          <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+          <Route path="/laws" element={<ProtectedRoute><LawsList /></ProtectedRoute>} />
+          <Route path="/laws/:id" element={<ProtectedRoute><LawDetail /></ProtectedRoute>} />
+          <Route path="/quiz/:id" element={<ProtectedRoute><Quiz /></ProtectedRoute>} />
+          <Route path="/score" element={<ProtectedRoute><Score /></ProtectedRoute>} />
           <Route
             path="*"
             element={
