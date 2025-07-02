@@ -1,0 +1,43 @@
+.bulb-container {
+  position: relative;
+  display: inline-block;
+  width: 130px;
+  height: auto;
+}
+
+.bulb-img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Glow positioning & strength */
+.bulb-container::after {
+  content: "";
+  position: absolute;
+  bottom: 8px; /* Adjust based on filament location */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 30px;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(254, 254, 0, 0.8), transparent 70%);
+  filter: blur(12px);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 0;
+}
+
+/* Glow levels */
+.bulb-container.dim::after {
+  opacity: 0.3;
+}
+
+.bulb-container.medium::after {
+  opacity: 0.6;
+}
+
+.bulb-container.bright::after {
+  opacity: 1;
+}

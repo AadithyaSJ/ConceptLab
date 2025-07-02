@@ -1,0 +1,105 @@
+.react-calendar {
+  background-color: rgba(255, 255, 255, 0.1); /* transparent white */
+  backdrop-filter: blur(10px);
+  border-radius: 1rem;
+  padding: 1rem;
+  color: white;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  border: none;
+}
+
+.react-calendar__tile--now {
+  background: none !important;
+  color: inherit !important;
+  font-weight: inherit !important;
+  position: relative;
+}
+
+.react-calendar__tile.not-today abbr::after {
+  content: "";
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 2px;
+  background-color: white;
+  border-radius: 2px;
+  opacity: 0.4;
+}
+
+.react-calendar__tile {
+  border-radius: 0.5rem;
+  transition: background 0.3s ease;
+}
+
+.react-calendar__tile:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Positioning the tooltip */
+.tooltip {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: black;
+  color: white;
+  padding: 4px 8px;
+  font-size: 10px;
+  border-radius: 4px;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+  z-index: 20;
+}
+
+/* Calendar tile styling */
+.react-calendar__tile.has-quiz {
+  position: relative;
+  font-weight: bold;
+}
+
+/* Making the date number appear inside a circle */
+.react-calendar__tile.has-quiz abbr {
+  display: inline-block;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 9999px;
+  line-height: 2rem;
+  text-align: center;
+  transition: background-color 0.3s;
+  position: relative;
+}
+
+.react-calendar__tile.has-quiz:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  top: -1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: black;
+  color: white;
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  white-space: nowrap;
+  z-index: 50;
+  opacity: 1;
+}
+
+.react-calendar__tile[data-tooltip]::after {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.react-calendar__tile:hover[data-tooltip]::after {
+  opacity: 1;
+}
+
+/* Intensity backgrounds */
+.intensity-1 abbr { background-color: #fef08a; color: black; }
+.intensity-2 abbr { background-color: #fde047; color: black; }
+.intensity-3 abbr { background-color: #facc15; color: black; }
+.intensity-4 abbr { background-color: #eab308; color: black; }
+.intensity-5 abbr { background-color: #ca8a04; color: white; }
